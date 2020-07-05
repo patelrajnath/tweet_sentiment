@@ -61,8 +61,11 @@ transformers_logger.setLevel(logging.WARNING)
 # with open('data/train.json', 'w') as f:
 #     json.dump(train_data, f)
 
-with open('data/train_processed.json', 'r') as f:
-    train_data = json.load(f)
+# with open('data/train_processed.json', 'r') as f:
+#     train_data = json.load(f)
+    
+with open('data/test_processed.json', 'r') as f:
+    test_data = json.load(f)
 
 # train_data = [item for topic in train_data['data'] for item in topic['paragraphs'] ]
 
@@ -87,7 +90,7 @@ train_args = {
 }
 arch = 'distilbert'
 m = 'distilbert-base-uncased-distilled-squad'
-# m = 'outputs/best_model'
+m = 'outputs/'
 # m = 'outputs/checkpoint-1644-epoch-2'
 
 # Create the QuestionAnsweringModel
@@ -99,7 +102,7 @@ model = QuestionAnsweringModel(arch, m,
 # Train the model with JSON file
 # model.train_model()
 
-model.train_model(train_data)
+# model.train_model(train_data)
 
 # The list can also be used directly
 # model.train_model(train_data)
@@ -112,15 +115,16 @@ model.train_model(train_data)
 
 print('-------------------')
 
-to_predict = [{'context': "Method of Recharging a Transportation Card. ",
+# to_predict = [{'context': "Method of Recharging a Transportation Card. ",
+#                'qas': [{'question': 'Huawei PAY is not supported for transportation card recharge?', 'id': '0'}]
+#                },
+#               {'context': 'What can I do if I cannot see the entrance for adding Huawei Pay traffic cards? ',
+#                'qas': [{'question': "I can't get a transit card?", 'id': '1'}]
+#                }
+#               ]
 
-               'qas': [{'question': 'Huawei PAY is not supported for transportation card recharge?', 'id': '0'}]
-               },
+import pandas as pd
 
-              {'context': 'What can I do if I cannot see the entrance for adding Huawei Pay traffic cards? ',
-
-               'qas': [{'question': "I can't get a transit card?", 'id': '1'}]
-               }
-              ]
-
-print(model.predict(to_predict, n_best_size=3))
+pred, prob = model.predict(test_data, n_best_size=1)
+out_df = pd.DataFrame(pred)
+out_df.to_csv('submission.csv')
