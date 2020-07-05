@@ -30,7 +30,7 @@ for id, row in train.iterrows():
     template['context'] = str(row['text'])
     template['qas'][0]['id'] = row['textID']
     template['qas'][0]['question'] = row['sentiment']
-    template['qas'][0]['answers'][0]['text'] = row['selected_text']
+    template['qas'][0]['answers'][0]['text'] = str(row['selected_text'])
     try:
         template['qas'][0]['answers'][0]['answer_start'] = row['text'].index(row['selected_text'])
     except AttributeError:
