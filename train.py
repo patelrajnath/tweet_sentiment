@@ -82,8 +82,9 @@ train_args = {
     'reprocess_input_data': False,
     # 'train_batch_size': 20,
     # 'gradient_accumulation_steps': 8,
+    'save_step': 0,
     'save_eval_checkpoints': False,
-    'save_model_every_epoch': True
+    'save_model_every_epoch': False
 }
 arch = 'distilbert'
 m = 'distilbert-base-uncased-distilled-squad'

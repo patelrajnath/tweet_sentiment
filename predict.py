@@ -78,15 +78,16 @@ train_args = {
     'do_lower_case': False,
     "wandb_project": False,
     'learning_rate': 3e-5,
-    'num_train_epochs': 10,
+    'num_train_epochs': 1,
     'max_seq_length': 384,
     'doc_stride': 128,
     'overwrite_output_dir': True,
     'reprocess_input_data': False,
     # 'train_batch_size': 20,
     # 'gradient_accumulation_steps': 8,
+    'save_step': 0,
     'save_eval_checkpoints': False,
-    'save_model_every_epoch': True
+    'save_model_every_epoch': False
 }
 arch = 'distilbert'
 m = 'distilbert-base-uncased-distilled-squad'
